@@ -211,3 +211,17 @@ const (
 	Empty          Flow = ""
 	XtlsRprxVision Flow = "xtls-rprx-vision"
 )
+
+type CreateClientRequest struct {
+	Client     CreateClient `json:"client"`
+	InboundIDS []int64      `json:"inboundIds"`
+}
+
+type CreateClient struct {
+	Email      string `json:"email"`
+	TotalGB    int64  `json:"totalGB"`
+	ExpiryTime int64  `json:"expiryTime"`
+	TgID       int64  `json:"tgId"`
+	LimitIP    int64  `json:"limitIp"`
+	Enable     bool   `json:"enable"`
+}
