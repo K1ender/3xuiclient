@@ -81,3 +81,31 @@ func (c *Client) AddClient(ctx context.Context, request CreateClientRequest) err
 
 	return nil
 }
+
+func (c *Client) UpdateClient(ctx context.Context, email string, request UpdateClientRequest) error {
+	data, err := json.Marshal(request)
+	if err != nil {
+		return fmt.Errorf("failed to marshal request: %w", err)
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+"/panel/api/clients/update/"+email, bytes.NewReader(data))
+	if err != nil {
+		return fmt.Errorf("failed to create request: %w", err)
+	}
+
+	req.Header.Set("Authorization", "Bearer "+c.token)
+
+	resp, err := c.httpClient.Do(req)
+
+	if err != nil {
+		return fmt.Errorf("failed to send request: %w", err)
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to add client: %s", resp.Status)
+	}
+
+	return nil
+}
