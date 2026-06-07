@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
@@ -33,17 +34,15 @@ func (c *Client) do(
 	body any,
 	out any,
 ) error {
-	var reader *bytes.Reader
+	var reader io.Reader
 
 	if body != nil {
 		data, err := json.Marshal(body)
 		if err != nil {
-			return fmt.Errorf("marshal request: %w", err)
+			return err
 		}
 
 		reader = bytes.NewReader(data)
-	} else {
-		reader = bytes.NewReader(nil)
 	}
 
 	req, err := http.NewRequestWithContext(
