@@ -26,7 +26,7 @@ func main() {
 			ExpiryTime: time.Now().Add(time.Hour).UnixMilli(),
 			TotalGB:    1024 * 1024 * 1024,
 			LimitIP:    1000,
-			Email:      "test",
+			Email:      "test@test.test",
 			Enable:     false,
 		},
 		InboundIDS: []int64{
@@ -39,9 +39,9 @@ func main() {
 
 	time.Sleep(5 * time.Second)
 
-	err = client.UpdateClient(context.Background(), "test", xuiclient.UpdateClientRequest{
+	err = client.UpdateClient(context.Background(), "test@test.test", xuiclient.UpdateClientRequest{
 		CreateClient: xuiclient.CreateClient{
-			Email:      "test",
+			Email:      "test@test.test",
 			ExpiryTime: time.Now().Add(time.Hour * 24).UnixMilli(),
 			Enable:     true,
 			TotalGB:    1024 * 1024 * 1024 * 10,
