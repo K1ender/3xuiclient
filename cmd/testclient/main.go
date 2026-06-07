@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"time"
 
@@ -50,4 +51,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	clientRes, err := client.GetClient(context.Background(), "test@test.test")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%+v\n", clientRes.Data)
 }

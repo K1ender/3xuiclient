@@ -117,3 +117,17 @@ func (c *Client) UpdateClient(
 		nil,
 	)
 }
+
+func (c *Client) GetClient(ctx context.Context, email string) (Response[ClientResponse], error) {
+	var res Response[ClientResponse]
+
+	err := c.do(
+		ctx,
+		http.MethodGet,
+		"/panel/api/clients/get/"+url.PathEscape(email),
+		nil,
+		&res,
+	)
+
+	return res, err
+}
